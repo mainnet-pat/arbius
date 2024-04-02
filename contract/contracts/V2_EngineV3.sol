@@ -353,7 +353,8 @@ contract V2_EngineV3 is OwnableUpgradeable {
         if (t > 3153600000) {
             return STARTING_ENGINE_TOKEN_AMOUNT;
         }
-        uint256 e = unwrap(ud(t).div(ud(60 * 60 * 24 * 365)).exp2());
+        // v3, factor of 2 emission reduction every year
+        uint256 e = unwrap(ud(t).div(ud(2 * 60 * 60 * 24 * 365)).exp2());
         return
             STARTING_ENGINE_TOKEN_AMOUNT -
             ((STARTING_ENGINE_TOKEN_AMOUNT * 1e18 * 1e18) / e / 1e18);
@@ -377,8 +378,8 @@ contract V2_EngineV3 is OwnableUpgradeable {
         SD59x18 d = sd(int256(ts)).div(sd(int256(e)));
 
         // prevents positive multiplier going to infinity
-        // 0.933 is inflection point where any lower will be > 100
-        if (unwrap(d) < 933561438102252700) {
+        // v3: 0.867 is inflection point where any lower will be > 100
+        if (unwrap(d) < 867122876204505600) {
             return 100e18;
         }
 
@@ -387,7 +388,8 @@ contract V2_EngineV3 is OwnableUpgradeable {
         SD59x18 onehundred = sd(100e18);
 
         // (1+((d-1)*100))-1
-        SD59x18 c = one.add((d.sub(one).mul(onehundred)).sub(one));
+        // v3, factor of 2 emission reduction every year
+        SD59x18 c = one.add((d.sub(one).mul(onehundred)).sub(one)).div(sd(2e18));
 
         // prevents negative multiplier overflow
         // TODO: Recompute this factor from overflow

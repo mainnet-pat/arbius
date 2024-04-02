@@ -151,16 +151,24 @@ describe("Reward Unit Tests", () => {
 
   describe("daa", () => {
     it("check targetTs", async () => {
-      expect(await engine.targetTs(0))           .to.equal(ethers.BigNumber.from("0"));
-      expect(await engine.targetTs(15768000))    .to.equal(ethers.BigNumber.from("175735931288071485118987"));
-      expect(await engine.targetTs(31536000))    .to.equal(ethers.BigNumber.from("300000000000000000000000"));
-      expect(await engine.targetTs(63072000))    .to.equal(ethers.BigNumber.from("450000000000000000000000"));
-      expect(await engine.targetTs(94608000))    .to.equal(ethers.BigNumber.from("525000000000000000000000"));
-      expect(await engine.targetTs(126144000))   .to.equal(ethers.BigNumber.from("562500000000000000000000"));
-      expect(await engine.targetTs(157680000))   .to.equal(ethers.BigNumber.from("581250000000000000000000"));
-      expect(await engine.targetTs(315360000))   .to.equal(ethers.BigNumber.from("599414062500000000000000"));
-      expect(await engine.targetTs(3153600000))  .to.equal(ethers.BigNumber.from("600000000000000000000000"));
-      expect(await engine.targetTs(31536000000)) .to.equal(ethers.BigNumber.from("600000000000000000000000"));
+      expect(await engine.targetTs(0 * 31536000)).to.equal(ethers.BigNumber.from("0"));
+      expect(await engine.targetTs(0.5*31536000)).to.equal(ethers.BigNumber.from("175735931288071485118987"));
+      expect(await engine.targetTs(1 * 31536000)).to.equal(ethers.BigNumber.from("300000000000000000000000"));
+      expect(await engine.targetTs(2 * 31536000)).to.equal(ethers.BigNumber.from("450000000000000000000000"));
+      expect(await engine.targetTs(3 * 31536000)).to.equal(ethers.BigNumber.from("525000000000000000000000"));
+      expect(await engine.targetTs(4 * 31536000)).to.equal(ethers.BigNumber.from("562500000000000000000000"));
+      expect(await engine.targetTs(5 * 31536000)).to.equal(ethers.BigNumber.from("581250000000000000000000"));
+      expect(await engine.targetTs(6 * 31536000)).to.equal(ethers.BigNumber.from("590625000000000000000000"));
+      expect(await engine.targetTs(7 * 31536000)).to.equal(ethers.BigNumber.from("595312500000000000000000"));
+      expect(await engine.targetTs(8 * 31536000)).to.equal(ethers.BigNumber.from("597656250000000000000000"));
+      expect(await engine.targetTs(9 * 31536000)).to.equal(ethers.BigNumber.from("598828125000000000000000"));
+      expect(await engine.targetTs(10 *31536000)).to.equal(ethers.BigNumber.from("599414062500000000000000"));
+      expect(await engine.targetTs(11 *31536000)).to.equal(ethers.BigNumber.from("599707031250000000000000"));
+      expect(await engine.targetTs(12 *31536000)).to.equal(ethers.BigNumber.from("599853515625000000000000"));
+      expect(await engine.targetTs(13 *31536000)).to.equal(ethers.BigNumber.from("599926757812500000000000"));
+      expect(await engine.targetTs(14 *31536000)).to.equal(ethers.BigNumber.from("599963378906250000000000"));
+      expect(await engine.targetTs(15 *31536000)).to.equal(ethers.BigNumber.from("599981689453125000000000"));
+      expect(await engine.targetTs(16 *31536000)).to.equal(ethers.BigNumber.from("599990844726562500000000"));
     });
 
     it("check diff", async () => {
